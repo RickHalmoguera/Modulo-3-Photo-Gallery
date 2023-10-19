@@ -15,7 +15,7 @@ export const searchSlice = createSlice({
         },
         updatePhotoList: (state, action) => {
             state.data = action.payload
-            
+            localStorage.setItem('SearchPhotos', JSON.stringify(state.data))
         }
     },
     extraReducers: (builder) => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getFavoritesData, removeFavorite, updatePhotoFavoritesList } from '../../app/features/favorites/favoritesSlice'
+import { removeFavorite } from '../../app/features/favorites/favoritesSlice'
 import { getPhotoData, updatePhotoList } from "../../app/features/search/searchSlice"
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -10,13 +10,14 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import IconButton from '@mui/material/IconButton'
 import DownloadIcon from '@mui/icons-material/Download'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Box } from '@mui/material'
 
 export const FavoritesGallery = ()=>{
     const dispatch = useDispatch()
     const [favoritesPhotos, setFavoritesPhotos] = useState([])
     const photos = useSelector(getPhotoData)
+    const sortedFavoritesPhotos = useSelector(state => state.favorites.sortedData)
 
     const handleRemoveFromFavorite = (photo) => {
         const idToRemove = photo.id
@@ -30,12 +31,12 @@ export const FavoritesGallery = ()=>{
         setFavoritesPhotos((prevFavorites) => prevFavorites.filter((fav) => fav.id !== idToRemove))
     }
     useEffect(() => {
-        const localStorageFavoritesPhotos = localStorage.getItem('favoritesPhotos');
+        const localStorageFavoritesPhotos = localStorage.getItem('sortedFavoritesPhotos');
         if (localStorageFavoritesPhotos) {
             const parsedFavoritesPhotos = JSON.parse(localStorageFavoritesPhotos);
             setFavoritesPhotos(parsedFavoritesPhotos);
         }
-    }, []);
+    }, [sortedFavoritesPhotos]);
     return(
         favoritesPhotos && (
             <ImageList

@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Box } from "@mui/material"
 import { Typography } from '@mui/material'
 import { FavoritesGallery } from '../components/FavoritesGallery/FavoritesGallery'
+import { SearchFavoritesBar } from '../components/SearchFavoritesbar/SearchFavoritesbar'
 
 
 export const Favorites = ()=>{
@@ -31,7 +32,7 @@ export const Favorites = ()=>{
                     color='primary'>
                         Your Favorites Photos
                 </Typography>
-
+                <SearchFavoritesBar/>
                 <FavoritesGallery/>
             </Box>
         </ThemeProvider>

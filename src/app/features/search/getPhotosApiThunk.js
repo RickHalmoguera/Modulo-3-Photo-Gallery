@@ -34,7 +34,7 @@ export const getPhotobySearchWordThunk = createAsyncThunk(
   "photo/getSearchPhotos",
   async (searchWord) => {
     try {
-      const request = await fetch(`${API_URL}search/photo/?client_id=${CLIENT_ID}&query=${searchWord}&per_page=30`)
+      const request = await fetch(`${API_URL}search/photos/?client_id=${CLIENT_ID}&query=${searchWord}&per_page=30`)
       if (!request.ok) {
         throw new Error(`Failed to fetch photos by search word. Status: ${request.status}`)
       }
