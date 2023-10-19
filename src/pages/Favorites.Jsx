@@ -3,6 +3,7 @@ import { Box } from "@mui/material"
 import { Typography } from '@mui/material'
 import { FavoritesGallery } from '../components/FavoritesGallery/FavoritesGallery'
 import { SearchFavoritesBar } from '../components/SearchFavoritesbar/SearchFavoritesbar'
+import { SortFavoritesRadios } from '../components/SortFavoritesRadios/SortFavoritesRadios'
 
 
 export const Favorites = ()=>{
@@ -33,6 +34,7 @@ export const Favorites = ()=>{
                         Your Favorites Photos
                 </Typography>
                 <SearchFavoritesBar/>
+                <SortFavoritesRadios/>
                 <FavoritesGallery/>
             </Box>
         </ThemeProvider>

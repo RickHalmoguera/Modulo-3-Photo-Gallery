@@ -22,12 +22,25 @@ export const favoriteSlice = createSlice({
       localStorage.setItem('favoritesPhotos', JSON.stringify(state.data))
       localStorage.setItem('sortedFavoritesPhotos', JSON.stringify(state.sortedData))
     },
-    updatePhotoFavoritesList: (state, action) => {
-      state.data = action.payload 
-      localStorage.setItem('favoritesPhotos', JSON.stringify(state.data))
+    sortFavoritesList: (state, action) => {
+      const sortValue = action.payload
+
+      if (sortValue === "width") {
+        state.sortedData = state.sortedData.sort((a, b) => a.width - b.width)
+        } else if (sortValue === "height") {
+        state.sortedData = state.sortedData.sort((a, b) => a.height - b.height)
+        } else if (sortValue === "likes") {
+        state.sortedData = state.sortedData.sort((a, b) => a.likes - b.likes)
+        } else if (sortValue === "date") {
+        state.sortedData = state.sortedData.sort(
+            (a, b) => new Date(a.date).getFullYear() - new Date(b.date).getFullYear()
+        )} 
+
+      localStorage.setItem('sortedFavoritesPhotos', JSON.stringify(state.sortedData))
     },
     searchInsideFavorites: (state, action) => {
       const searchWord = action.payload
+
       if (searchWord === '') {
     
         state.sortedData = state.data
@@ -41,5 +54,5 @@ export const favoriteSlice = createSlice({
   },
 })
 
-export const { addFavorite, removeFavorite, updatePhotoFavoritesList, searchInsideFavorites } = favoriteSlice.actions
+export const { addFavorite, removeFavorite, sortFavoritesList, searchInsideFavorites } = favoriteSlice.actions
 export const getFavoritesData = (state)=> state.favorites
