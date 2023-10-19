@@ -17,7 +17,7 @@ export const FavoritesGallery = ()=>{
     const dispatch = useDispatch()
     const [favoritesPhotos, setFavoritesPhotos] = useState([])
     const photos = useSelector(getPhotoData)
-    const sortedFavoritesPhotos = useSelector(state => state.favorites.sortedData)
+const sortedFavoritesPhotos = useSelector(state => state.favorites.sortedData)
 
     const handleRemoveFromFavorite = (photo) => {
         const idToRemove = photo.id
