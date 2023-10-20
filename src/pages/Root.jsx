@@ -17,7 +17,7 @@ export const Root = () =>{
         <ThemeProvider theme ={THEME}>
             <CssBaseline>
                 <Box  sx={{
-                height:'100%',
+                minHeight:'100%',
                 backgroundColor:'#10141E',
                 display:'flex',
                 flexDirection:{ xs:'column' ,sm:'column', md:'row',lg:'row',xl:'row'}

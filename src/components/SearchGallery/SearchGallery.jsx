@@ -6,7 +6,7 @@ import DownloadIcon from '@mui/icons-material/Download'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { Link } from 'react-router-dom'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite, removeFavorite } from "../../app/features/favorites/favoritesSlice"
 import {getPhotoData, updatePhotoList} from '../../app/features/search/searchSlice'
@@ -39,7 +39,7 @@ export const SearchGallery = () => {
   
 
   return (
-    photos && (
+    photos && photos.length > 0 ? (
       <ImageList
         sx={{
           width: '100%',
@@ -84,6 +84,12 @@ export const SearchGallery = () => {
           </ImageListItem>
         ))}
       </ImageList>
-    )
+    ) : 
+    <Typography
+    variant='h6' 
+    component='h1' 
+    color='#fff'>
+       No Photos found 
+    </Typography>
   )
 }

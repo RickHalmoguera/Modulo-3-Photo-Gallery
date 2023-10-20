@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const value = localStorage.getItem('SearchPhotos')!== null ? JSON.parse(localStorage.getItem('SearchPhotos')).filter(item => item.isFavorite === true) :[] 
+const data = localStorage.getItem('SearchPhotos')!== null ? JSON.parse(localStorage.getItem('SearchPhotos')).filter(item => item.isFavorite === true) :[] 
+const sortedDataInit = localStorage.getItem('sortedFavoritesPhotos')!== null ? JSON.parse(localStorage.getItem('sortedFavoritesPhotos')) :[] 
 export const favoriteSlice = createSlice({
   name: 'favorites',
   initialState: {
-    data:value,
-    sortedData: value
+    data:data,
+    sortedData: sortedDataInit
   }
   ,
   reducers: {
@@ -24,7 +25,6 @@ export const favoriteSlice = createSlice({
     },
     sortFavoritesList: (state, action) => {
       const sortValue = action.payload
-
       if (sortValue === "width") {
         state.sortedData = state.sortedData.sort((a, b) => a.width - b.width)
         } else if (sortValue === "height") {
