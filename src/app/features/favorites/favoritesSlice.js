@@ -50,9 +50,14 @@ export const favoriteSlice = createSlice({
         )
       }
       localStorage.setItem('sortedFavoritesPhotos', JSON.stringify(state.sortedData))
+    },
+    updateFavoritesArray:(state,action)=>{
+      state.sortedData = action.payload
+      localStorage.setItem('sortedFavoritesPhotos', JSON.stringify(state.sortedData))
+      localStorage.setItem('favoritesPhotos', JSON.stringify(state.sortedData))
     }
   },
 })
 
-export const { addFavorite, removeFavorite, sortFavoritesList, searchInsideFavorites } = favoriteSlice.actions
+export const { addFavorite, removeFavorite, sortFavoritesList, searchInsideFavorites, updateFavoritesArray } = favoriteSlice.actions
 export const getFavoritesData = (state)=> state.favorites

@@ -21,9 +21,11 @@ export const SortFavoritesRadios = ()=>{
     }, [sortValue])
 
     return(
-        <FormControl>
+        <FormControl focused>
+        
                     <FormLabel id="demo-row-radio-buttons-group-label">Sort by:</FormLabel>
                     <RadioGroup
+                        
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
@@ -34,6 +36,7 @@ export const SortFavoritesRadios = ()=>{
                         value="width"
                         control={<Radio/>}
                         label="Width"
+                        
                         sx={{ color: 'white',
                                 fontSize:'1.5rem' }} 
                         />
