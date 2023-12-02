@@ -1,25 +1,12 @@
-import { useState, useEffect } from 'react'
 import FormControl from '@mui/material/FormControl'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
-import { useDispatch} from 'react-redux'
-import {sortFavoritesList} from '../../app/features/favorites/favoritesSlice'
 
-export const SortFavoritesRadios = ()=>{
-    const dispatch = useDispatch()
-    const [sortValue,setSortValue] = useState("")
+
+export const SortFavoritesRadios = ({getSortValue})=>{
     
-    
-    const handleChange = (e) => {
-        setSortValue(e.target.value);
-    }
-
-    useEffect(() => {
-    dispatch(sortFavoritesList(sortValue))
-    }, [sortValue])
-
     return(
         <FormControl focused>
         
@@ -29,7 +16,7 @@ export const SortFavoritesRadios = ()=>{
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
-                        onChange={handleChange}
+                        onChange={(e)=>getSortValue(e.target.value)}
                     >
                         <FormControlLabel
                         color="default"

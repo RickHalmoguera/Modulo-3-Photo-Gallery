@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
 import { useDispatch,useSelector } from 'react-redux'
 
-import { getPhotobySearchWordThunk, getRandomPhotosThunk } from '../../app/features/search/getPhotosApiThunk'
+import { getPhotobySearchWordThunk, getRandomPhotosThunk } from '../../features/search/getPhotosApiThunk'
 
 export const SearchBar = ()=>{
     const dispatch = useDispatch()
@@ -14,7 +14,6 @@ export const SearchBar = ()=>{
     const handleSubmit = (e) =>{
         e.preventDefault()
        if(searchWord===""){
-        console.log('todo')
         dispatch(getRandomPhotosThunk())
        }else{
         dispatch(getPhotobySearchWordThunk(searchWord)).then((photos)=>{

@@ -1,24 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {getRandomPhotosThunk, getPhotobySearchWordThunk } from "./getPhotosApiThunk";
 
-const value = localStorage.getItem('SearchPhotos')!== null ? JSON.parse(localStorage.getItem('SearchPhotos')) :[] 
 export const searchSlice = createSlice({
     name: "photo",
     initialState: {
-        data: value,
+        data: [],
         status: "idle",
         error: null
     },
     reducers: {
-        getPhoto: (state,action) => {
-            state.data = [...state.data,action.payload]
+       
+        updateFavoriteIcon:(state,action) =>{
+            const photoIdToChange = action.payload.id
+
+            state.data = state.data.map((photo) =>
+                photo.id === photoIdToChange ? { ...photo, isFavorite: !photo.isFavorite } : photo
+            );
+
         },
+
+
         updatePhotoList: (state, action) => {
             state.data = action.payload
-            localStorage.setItem('SearchPhotos', JSON.stringify(state.data))
         }
     },
     extraReducers: (builder) => {
+        
         builder.addCase(getRandomPhotosThunk.pending, (state,action) => {
             state.status = "pending"
         }).addCase(getRandomPhotosThunk.rejected,(state,action) => {
@@ -28,6 +35,7 @@ export const searchSlice = createSlice({
             state.status = "fulfilled"
             state.data = action.payload
             localStorage.setItem('SearchPhotos', JSON.stringify(state.data))
+
         }).addCase(getPhotobySearchWordThunk.pending, (state,action) => {
             state.status = "pending"
         }).addCase(getPhotobySearchWordThunk.rejected,(state,action) => {
@@ -41,7 +49,7 @@ export const searchSlice = createSlice({
     }
 });
 
-export const {getPhoto, updatePhotoList} = searchSlice.actions
+export const {updateFavoriteIcon, updatePhotoList} = searchSlice.actions
 export const getPhotoData = (state) => state.photo.data
 export const getPhotoStatus = (state) => state.photo.status
 export const getPhotoError = (state) => state.photo.error

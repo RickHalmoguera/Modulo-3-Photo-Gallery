@@ -1,7 +1,7 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import {searchSlice} from '../features/search/searchSlice'
-import {favoriteSlice} from '../features/favorites/favoritesSlice' 
+import {searchSlice} from '../../features/search/searchSlice'
+import {favoriteSlice} from '../../features/favorites/favoritesSlice' 
 
 const rootReducer = combineReducers({
   photo: searchSlice.reducer,

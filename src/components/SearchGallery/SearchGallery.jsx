@@ -6,47 +6,35 @@ import DownloadIcon from '@mui/icons-material/Download'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { Link } from 'react-router-dom'
-import { Box, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavorite, removeFavorite } from "../../app/features/favorites/favoritesSlice"
-import {getPhotoData, updatePhotoList} from '../../app/features/search/searchSlice'
+import { Box } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { addFavorite, removeFavorite } from '../../features/favorites/favoritesSlice'
+import { updateFavoriteIcon } from '../../features/search/searchSlice'
 
-export const SearchGallery = () => {
+
+
+export const SearchGallery = ({photosList}) => {
   const dispatch = useDispatch()
-  const photos = useSelector(getPhotoData)
+  const handleRemoveFromFavorite = (photo) =>{
   
-
-  const handleAddToFavorite = (photo, index) => {
-    const updatedPhoto = { ...photo, isFavorite: true }
-    dispatch(addFavorite(updatedPhoto))
-
-    const updatedPhotosToShow = photos.map((item, i) =>
-      i === index ? { ...item, isFavorite: true } : item
-    )
-
-    dispatch(updatePhotoList(updatedPhotosToShow))
-    
+  dispatch(removeFavorite(photo))
+    dispatch(updateFavoriteIcon(photo))
+    dispatch(removeFavorite(photo))
   }
 
-  const handleRemoveFromFavorite = (photo, index) => {
-    dispatch(removeFavorite(photo.id))
-    const updatedPhotosToShow = photos.map((item, i) =>
-      i === index ? { ...item, isFavorite: false } : item
-    )
-
-    dispatch(updatePhotoList(updatedPhotosToShow))
+  const handleAddToFavorite = (photo) =>{
+    dispatch(updateFavoriteIcon(photo))
+    dispatch(addFavorite(photo))
   }
-  
-
   return (
-    photos && photos.length > 0 ? (
+    
       <ImageList
         sx={{
-          width: '100%',
+          width: '90%',
           gridTemplateColumns: 'repeat(auto-fill,minmax(350px,1fr))!important',
         }}
       >
-        {photos.map((photo, index) => ( 
+        {photosList.map((photo) => ( 
           <ImageListItem key={photo.img}>
             <img
               srcSet={`${photo.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -62,8 +50,8 @@ export const SearchGallery = () => {
                     sx={{ color: "#fff" }}
                     onClick={() => {
                       photo.isFavorite
-                        ? handleRemoveFromFavorite(photo, index)
-                        : handleAddToFavorite(photo, index)
+                        ? handleRemoveFromFavorite(photo)
+                        : handleAddToFavorite(photo)
                     }}
                   >
                     {photo.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
@@ -84,12 +72,6 @@ export const SearchGallery = () => {
           </ImageListItem>
         ))}
       </ImageList>
-    ) : 
-    <Typography
-    variant='h6' 
-    component='h1' 
-    color='#fff'>
-       No Photos found 
-    </Typography>
+
   )
 }

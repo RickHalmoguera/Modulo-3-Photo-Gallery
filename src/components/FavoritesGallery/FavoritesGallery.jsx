@@ -1,8 +1,3 @@
-import { useState, useEffect } from 'react'
-import { removeFavorite, updateFavoritesArray } from '../../app/features/favorites/favoritesSlice'
-import { getPhotoData, updatePhotoList } from "../../app/features/search/searchSlice"
-import { useDispatch, useSelector } from 'react-redux'
-
 
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
@@ -15,60 +10,47 @@ import SaveIcon from '@mui/icons-material/Save'
 import { Link } from 'react-router-dom'
 import { Box } from '@mui/material'
 import TextField from '@mui/material/TextField'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { updateFavoriteIcon } from '../../features/search/searchSlice'
+import { changeDescription, removeFavorite } from '../../features/favorites/favoritesSlice'
 
-export const FavoritesGallery = ()=>{
-    const dispatch = useDispatch()
-    const photos = useSelector(getPhotoData)
-    const sortedFavoritesPhotos = useSelector(state => state.favorites.sortedData)
-    const [favoritesPhotos, setFavoritesPhotos] = useState(sortedFavoritesPhotos)
-    const [editingPhotoId, setEditingPhotoId] = useState(null) 
-    const [newDescription, setNewDescription] = useState("")
+export const FavoritesGallery = ({favoritesList})=>{
+  const dispatch = useDispatch()
 
-    const handleRemoveFromFavorite = (photo) => {
-        const idToRemove = photo.id
-        dispatch(removeFavorite(idToRemove))
-        
-        const updatedPhotosToShow = photos.map((item) =>
-        item.id === idToRemove ? { ...item, isFavorite: false } : item
-        )
-        
-        dispatch(updatePhotoList(updatedPhotosToShow))
-        setFavoritesPhotos((prevFavorites) => prevFavorites.filter((fav) => fav.id !== idToRemove))
-    }
+  const [editingPhotoId, setEditingPhotoId] = useState(null) 
+  const [newDescription, setNewDescription] = useState("")
+ 
 
-    const handleEdit = (photo) => {
-      setEditingPhotoId(photo.id) 
-    }
+  const handleRemoveFromFavorites = (photo)=>{
+    dispatch(updateFavoriteIcon(photo))
+    dispatch(removeFavorite(photo))
+  }
 
-    const handleSave = (photo) => {
-      const photoModify = photo.id
+  const handleEdit = (photo) => {
+    setEditingPhotoId(photo.id) 
+  }
   
-      const updatedFavorites = favoritesPhotos.map((item) =>
-        item.id === photoModify ? { ...item, description: newDescription } : item
-      )
-  
-      dispatch(updateFavoritesArray(updatedFavorites))
-      setFavoritesPhotos(updatedFavorites)
-      setEditingPhotoId(null) 
+  const handleSave = (photo) => {
+    const photoToModify = {
+      id:photo.id,
+      newDescription : newDescription
     }
-
-    useEffect(() => {
-        const localStorageFavoritesPhotos = localStorage.getItem('sortedFavoritesPhotos');
-        if (localStorageFavoritesPhotos) {
-            const parsedFavoritesPhotos = JSON.parse(localStorageFavoritesPhotos);
-            setFavoritesPhotos(parsedFavoritesPhotos);
-        }
-    }, [sortedFavoritesPhotos]);
+    
+    dispatch(changeDescription(photoToModify))
+    setEditingPhotoId(null) 
+  }
+  
     return(
-        favoritesPhotos && (
+      
             <ImageList
               sx={{
-                width: '100%',
+                width: '90%',
                 gridTemplateColumns: 'repeat(auto-fill,minmax(350px,1fr))!important',
               }}
             >
               
-              {favoritesPhotos.map((photo) => (
+              {favoritesList.map((photo) => (
                 <ImageListItem key={photo.img}>
                   <img
                     srcSet={`${photo.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -99,7 +81,7 @@ export const FavoritesGallery = ()=>{
                         }
                         <IconButton 
                         sx={{ color: "#fff" }}
-                        onClick={() => {handleRemoveFromFavorite(photo)}}
+                        onClick={() => {handleRemoveFromFavorites(photo)}}
                         >
                           <FavoriteIcon />
                         </IconButton>
@@ -136,7 +118,8 @@ export const FavoritesGallery = ()=>{
 
                 </ImageListItem>
               ))}
+              
             </ImageList>
-          )
+          
     )
 }
