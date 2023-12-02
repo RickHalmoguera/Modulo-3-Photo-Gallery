@@ -34,8 +34,6 @@ export const searchSlice = createSlice({
         }).addCase(getRandomPhotosThunk.fulfilled,(state,action) => {
             state.status = "fulfilled"
             state.data = action.payload
-            localStorage.setItem('SearchPhotos', JSON.stringify(state.data))
-
         }).addCase(getPhotobySearchWordThunk.pending, (state,action) => {
             state.status = "pending"
         }).addCase(getPhotobySearchWordThunk.rejected,(state,action) => {
@@ -44,7 +42,6 @@ export const searchSlice = createSlice({
         }).addCase(getPhotobySearchWordThunk.fulfilled,(state,action) => {
             state.status = "fulfilled"
             state.data = action.payload
-            localStorage.setItem('SearchPhotos', JSON.stringify(state.data))
         })
     }
 });
