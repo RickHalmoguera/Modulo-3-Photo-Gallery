@@ -34,7 +34,7 @@ export const AppNavBar=()=> {
         </Typography>
         
         <BottomNavigation 
-        
+        showLabels
         sx={{
           backgroundColor: 'transparent',
           width:130,
