@@ -1,0 +1,35 @@
+name: deployAwsS3
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v2
+
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.16.1
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run:  npm run build
+
+      - name: Deploy to AWS S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CLAVE_PUBLICA_AWS }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLAVE_PRIVADA_AWS }}
+          AWS_REGION: "eu-west-3"
+          SOURCE_DIR: "dist"
