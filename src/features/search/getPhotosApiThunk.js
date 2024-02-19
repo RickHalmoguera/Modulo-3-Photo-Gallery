@@ -1,13 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-const URL_API = import.meta.env.URL_API
 const CLIENT_ID = import.meta.env.CLIENT_ID
 
 export const getRandomPhotosThunk = createAsyncThunk(
   "photo/getRandomPhotos",
   async () => {
     try {
-      const request = await fetch(`${URL_API}/photos/random/?client_id=${CLIENT_ID}&count=30`)
+      const request = await fetch(`https://api.unsplash.com//photos/random/?client_id=${CLIENT_ID}&count=30`)
       if (!request.ok) {
         throw new Error(`Failed to fetch photos from API. Status code: ${request.status}`)
       }
