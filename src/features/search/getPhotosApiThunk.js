@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-const URL_API = import.meta.env.URL_API
-const CLIENT_ID = import.meta.env.CLIENT_ID
+
 
 export const getRandomPhotosThunk = createAsyncThunk(
   "photo/getRandomPhotos",
