@@ -26,8 +26,8 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.CLAVE_PUBLICA_AWS }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLAVE_PRIVADA_AWS }}
+          AWS_S3_BUCKET: photogalleryoxygen
+          AWS_ACCESS_KEY_ID: AKIAXA75BOOLR5PR2Z5U
+          AWS_SECRET_ACCESS_KEY: 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
           AWS_REGION: "eu-west-3"
           SOURCE_DIR: "dist"
