@@ -4,7 +4,7 @@ export const getRandomPhotosThunk = createAsyncThunk(
   "photo/getRandomPhotos",
   async () => {
     try {
-      const request = await fetch(`${API_URL}/photos/random/?client_id=${CLIENT_ID}&count=30`)
+      const request = await fetch(`${URL_API}/photos/random/?client_id=${CLIENT_ID}&count=30`)
       if (!request.ok) {
         throw new Error(`Failed to fetch photos from API. Status code: ${request.status}`)
       }
