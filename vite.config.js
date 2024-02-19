@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     define: {
       
+      
       "import.meta.env": JSON.stringify(env),
     },
   };
