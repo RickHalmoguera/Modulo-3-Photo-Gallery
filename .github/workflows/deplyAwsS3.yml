@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: CLIENT_ID=${{secrets.CLIENT_ID}} npm run build
+        run: VITE_CLIENT_ID=${{secrets.VITE_CLIENT_ID}} npm run build
 
       - name: Deploy to AWS S3
         uses: jakejarvis/s3-sync-action@master
@@ -32,4 +32,4 @@ jobs:
           AWS_REGION: "eu-west-3"
           SOURCE_DIR: "dist"
           URL_API : ${{secrets.URL_API}}
-          CLIENT_ID : ${{secrets.CLIENT_ID}}
+          VITE_CLIENT_ID : ${{secrets.VITE_CLIENT_ID}}
