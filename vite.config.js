@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { loadEnv } from "vite";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 
 export default defineConfig(({ mode }) => {
@@ -9,10 +12,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    define: {
-      
-      
-      "import.meta.env": JSON.stringify(env),
-    },
+
   };
 });
