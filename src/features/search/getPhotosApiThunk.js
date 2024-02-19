@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-const API_URL = "https://api.unsplash.com/"
-const CLIENT_ID = "VlcM8qT9DXQJ9leBuNkAPNiI33xuIfsb4ZagTqN8QvY"
+const API_URL = import.meta.env.VITE_API_URL
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
 
 export const getRandomPhotosThunk = createAsyncThunk(
   "photo/getRandomPhotos",
