@@ -4,7 +4,7 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
 
 export const getRandomPhotosThunk = createAsyncThunk(
   "photo/getRandomPhotos",
-  async () => {
+  async () =>{
     try {
       const request = await fetch(`https://api.unsplash.com//photos/random/?client_id=${CLIENT_ID}&count=30`)
       if (!request.ok) {
